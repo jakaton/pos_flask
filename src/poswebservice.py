@@ -27,14 +27,20 @@ languages={
 }
 
 
+@app.route('/',methods=['GET'])
+def index():
+    return "Service up" 
 
-@app.route('/pos/api/v1.0/languages',methods=['GET'])
+
+
+
+@app.route('/api/v1.0/languages',methods=['GET'])
 def get_languages():
     res=[lan['lang'] for lan in languages]
     return json.dumps({"languages":res}) 
 
-@app.route('/pos/api/v1.0/tag/<string:sntc>',defaults={'lang':'es'},methods=['GET'] )
-@app.route('/pos/api/v1.0/tag/<string:lang>/<string:sntc>',methods=['GET'] )
+@app.route('/api/v1.0/tag/<string:sntc>',defaults={'lang':'es'},methods=['GET'] )
+@app.route('/api/v1.0/tag/<string:lang>/<string:sntc>',methods=['GET'] )
 def tag(lang,sntc):
     pos=languages[lang]
     pos_=[]
@@ -58,8 +64,8 @@ def tag(lang,sntc):
         remove(temp.name)
     return json.dumps({"POS":pos_},ensure_ascii=False)
 
-@app.route('/pos/api/v1.0/tag',defaults={'lang':None},methods=['POST'] )
-@app.route('/pos/api/v1.0/tag/<string:lang>',methods=['POST'] )
+@app.route('/api/v1.0/tag',defaults={'lang':None},methods=['POST'] )
+@app.route('/api/v1.0/tag/<string:lang>',methods=['POST'] )
 def tag_post(lang):
     if not lang:
         lang="es"
