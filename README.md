@@ -1,52 +1,38 @@
-POS tagging
-===========
+# POS tagging
 
-Para etiquetar las categorías gramaticales usamos un código en java que leé 
-los documentos y los etiqueta de forma automática. Para lograr esto hay que 
-hacer lo siguiente:
+Librería para poner un servicio web de etiquetación de categorías 
+gramaticales. Por lo pronto español e inglés basadons en el parse de Stanford.
 
-Requisitos
-----------
+# Requisitos
 
-* Java a
+* Java 8
+* CoreNLP de Stanford 
 
-El siguiente link contiene instrucciones para su instalación en Ubuntu:
+Para su instalación ver instrucciones en `lib/README.md`
 
-https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get
+# Peticiones REST a servicio web
 
-Instalar las librerias de CoreNLP de Stanford
----------------------------------------------
-
-En el directorio de `authorid` ejecutar para conseguir las librerias
-
-    wget http://nlp.stanford.edu/software/stanford-corenlp-full-2015-01-29.zip
-    unzip stanford-corenlp-full-2015-01-29.zip
-    cp stanford-corenlp-full-2015-01-29/stanford-corenlp-3.5.1.jar lib/
-    cp stanford-corenlp-full-2015-01-29/stanford-corenlp-3.5.1-models.jar lib/
-    wget http://nlp.stanford.edu/software/stanford-spanish-corenlp-2015-01-08-models.jar
-    mv stanford-spanish-corenlp-2015-01-08-models.jar lib
-
-Compilación
------------
-
-Opcionalmente se puede borrar las librerias
-    
-    rm -r stanford-corenlp-full-2015-01-29
-    rm -r stanford-corenlp-full-2015-01-29.zip
-
-Para compilar nuestró código se hace lo siguiente en el directorio 
-`authorid/src/java`
-
-    javac -classpath ../../lib/*:* SpanishTagger.java
-    javac -classpath ../../lib/*:* EnlgishTagger.java
-
-Ejecutar/etiquetar
-------------------
-
-Para etiquetar por ejemplo un directorio con textos en español hacer lo siguiente:
-
-    java -classpath ../../lib/*:. SpanishTagger ../../data/pan15_train/spanish
-
-Al finalizar debe haber archivos extra con la extensión `_tag`.
+## Algunos ejemplos
 
 
+### Etiquetando oraciones desde la url
+
+Este método se pude probar también usando un navegador
+
+    curl http://URL/pos/api/v1.0/tag/este%20es%20un%20ejemplo
+
+Si gustamos podemos definir el idioma a analizar
+
+    curl http://URL/pos/api/v1.0/tag/es/este%20es%20un%20ejemplo
+    curl http://URL/pos/api/v1.0/tag/en/this%20is%20an%20example
+
+### Etiquetando orraciones con método POST
+
+Usar el método POST nos permite etiquetar más de una oración al mismo tiempo
+
+    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag
+
+Si gustamos podemos definir el idioma a analizar
+
+    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag/es
+    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag/en

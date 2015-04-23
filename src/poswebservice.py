@@ -14,6 +14,7 @@ from os import remove
 from subprocess import Popen, PIPE
 import codecs
 import json
+import argparse
 
 
 app = Flask('poswebservice')
@@ -57,9 +58,11 @@ def tag(lang,sntc):
         remove(temp.name)
     return json.dumps({"POS":pos_},ensure_ascii=False)
 
-@app.route('/pos/api/v1.0/tag/<string:lang>',defaults={'lang':'es'},methods=['POST'] )
+@app.route('/pos/api/v1.0/tag',defaults={'lang':None},methods=['POST'] )
 @app.route('/pos/api/v1.0/tag/<string:lang>',methods=['POST'] )
 def tag_post(lang):
+    if not lang:
+        lang="es"
     pos=languages[lang]
     pos_=[]
     try:
@@ -84,5 +87,22 @@ def tag_post(lang):
     return json.dumps({"POS":pos_},ensure_ascii=False) 
 
 if __name__ == '__main__':
-    app.run(debug="True")
+    p = argparse.ArgumentParser("Author identification")
+    p.add_argument("--host",default="127.0.0.1",
+            action="store", dest="host",
+            help="Root url [127.0.0.1]")
+    p.add_argument("--port",default=5000,type=int,
+            action="store", dest="port",
+            help="Port url [500]")
+    p.add_argument("--debug",default=False,
+            action="store_true", dest="debug",
+            help="Use debug deployment [Flase]")
+    p.add_argument("-v", "--verbose",
+            action="store_true", dest="verbose",
+            help="Verbose mode [Off]")
+    opts = p.parse_args()
+
+    app.run(debug=opts.debug,
+            host=opts.host,
+            port=opts.port)
 
