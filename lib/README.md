@@ -2,8 +2,8 @@ POS tagging
 ===========
 
 Para etiquetar las categorías gramaticales usamos un código en java que leé 
-los documentos y los etiqueta de forma automática. Para lograr esto hay que 
-hacer lo siguiente:
+los documentos y los etiqueta de forma automática. Para lograr esto funcione 
+hay que hacer lo siguiente:
 
 Requisitos
 ----------
@@ -23,7 +23,8 @@ En el directorio de `authorid` ejecutar para conseguir las librerias
     unzip stanford-corenlp-full-2015-01-29.zip
     cp stanford-corenlp-full-2015-01-29/stanford-corenlp-3.5.1.jar lib/
     cp stanford-corenlp-full-2015-01-29/stanford-corenlp-3.5.1-models.jar lib/
-    wget http://nlp.stanford.edu/software/stanford-spanish-corenlp-2015-01-08-models.jar
+    wget 
+    http://nlp.stanford.edu/software/stanford-spanish-corenlp-2015-01-08-models.jar
     mv stanford-spanish-corenlp-2015-01-08-models.jar lib
 
 Compilación
@@ -35,18 +36,11 @@ Opcionalmente se puede borrar las librerias
     rm -r stanford-corenlp-full-2015-01-29.zip
 
 Para compilar nuestró código se hace lo siguiente en el directorio 
-`authorid/src/java`
+`pos_flask/src`
 
-    javac -classpath ../../lib/*:* SpanishTagger.java
-    javac -classpath ../../lib/*:* EnlgishTagger.java
+    javac -classpath ../lib/*:* SpanishTagger.java
+    javac -classpath ../lib/*:* EnlgishTagger.java
 
-Ejecutar/etiquetar
-------------------
-
-Para etiquetar por ejemplo un directorio con textos en español hacer lo siguiente:
-
-    java -classpath ../../lib/*:. SpanishTagger ../../data/pan15_train/spanish
-
-Al finalizar debe haber archivos extra con la extensión `_tag`.
+Una vez compilado nuestro webservice se encargará de ejecutarlo
 
 
