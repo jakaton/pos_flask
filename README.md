@@ -19,20 +19,20 @@ Para su instalación ver instrucciones en `lib/README.md`
 
 Este método se pude probar también usando un navegador
 
-    curl http://URL/pos/api/v1.0/tag/este%20es%20un%20ejemplo
+    curl http://URL/api/v1.0/tag/este%20es%20un%20ejemplo
 
 Si gustamos podemos definir el idioma a analizar
 
-    curl http://URL/pos/api/v1.0/tag/es/este%20es%20un%20ejemplo
-    curl http://URL/pos/api/v1.0/tag/en/this%20is%20an%20example
+    curl http://URL/api/v1.0/tag/es/este%20es%20un%20ejemplo
+    curl http://URL/api/v1.0/tag/en/this%20is%20an%20example
 
 ### Etiquetando orraciones con método POST
 
 Usar el método POST nos permite etiquetar más de una oración al mismo tiempo
 
-    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag
+    curl -X POST -T ARCHIVO http://URL/api/v1.0/tag
 
 Si gustamos podemos definir el idioma a analizar
 
-    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag/es
-    curl -X POST -T ARCHIVO http://URL/pos/api/v1.0/tag/en
+    curl -X POST -T ARCHIVO http://URL/api/v1.0/tag/es
+    curl -X POST -T ARCHIVO http://URL/api/v1.0/tag/en
