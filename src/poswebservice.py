@@ -36,12 +36,14 @@ def index():
 
 @app.route('/api/v1.0/languages',methods=['GET'])
 def get_languages():
-    res=[lan['lang'] for lan in languages]
+    res=[lan for lan in languages.keys()]
     return json.dumps({"languages":res}) 
 
-@app.route('/api/v1.0/tag/<string:sntc>',defaults={'lang':'es'},methods=['GET'] )
+@app.route('/api/v1.0/tag/<string:sntc>',defaults={'lang':None},methods=['GET'] )
 @app.route('/api/v1.0/tag/<string:lang>/<string:sntc>',methods=['GET'] )
 def tag(lang,sntc):
+    if not lang:
+        lang="es"
     pos=languages[lang]
     pos_=[]
     try:
